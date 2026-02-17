@@ -10,7 +10,7 @@
     --bg-white: #ffffff;
     --text-muted: #6b7280;
 
-    /* Smart Table System Colors (TOS) */
+    /* Smart Table & Auth System Colors */
     --tos-red: #C62828; /* VIP Red */
     --tos-gold: #F4B400;
     --tos-dark: #1F1F1F;
@@ -302,7 +302,7 @@ h1, h2, h3, h4, h5, .brand-rest { font-family: 'Playfair Display', serif; }
 .map-container {
     position: relative;
     height: 320px;
-    border-radius: 18px; /* Strict 18px radius as requested */
+    border-radius: 18px; /* Strict 18px radius */
     overflow: hidden;
     background: #e9ecef;
     border: 4px solid white;
@@ -427,6 +427,12 @@ h1, h2, h3, h4, h5, .brand-rest { font-family: 'Playfair Display', serif; }
 /* Full screen sidebar on mobile */
 @media (max-width: 576px) {
     .quick-order-panel, .tos-cart-sidebar { width: 100%; max-width: 100%; }
+    /* Map adjustments for mobile */
+    .map-container { height: 250px; }
+    .map-overlay-card {
+        left: 10px; right: 10px; bottom: 10px;
+        max-width: none;
+    }
 }
 
 .panel-backdrop, .tos-modal-backdrop {
@@ -542,4 +548,125 @@ h1, h2, h3, h4, h5, .brand-rest { font-family: 'Playfair Display', serif; }
     width: 24px; height: 24px; border-radius: 6px;
     border: none; background: white;
     display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+
+/* ==============================================
+   7. AUTH SYSTEM & PROFILE STYLES (NEW)
+   ============================================== */
+
+/* Navbar Profile Trigger */
+.profile-trigger {
+    width: 42px; height: 42px;
+    border-radius: 50%; cursor: pointer;
+    position: relative;
+    border: 2px solid var(--primary-color);
+    padding: 2px;
+    transition: transform 0.2s;
+}
+.profile-trigger:hover { transform: scale(1.05); }
+.profile-trigger img {
+    width: 100%; height: 100%;
+    border-radius: 50%; object-fit: cover;
+}
+.online-badge {
+    position: absolute; bottom: 0; right: 0;
+    width: 12px; height: 12px;
+    background-color: #25D366;
+    border: 2px solid white; border-radius: 50%;
+}
+
+/* Login Modal (Glassmorphism) */
+.auth-backdrop {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+    z-index: 10000; display: none;
+    justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.3s;
+}
+.auth-backdrop.active { display: flex; opacity: 1; }
+.auth-modal-card {
+    background: white; width: 90%; max-width: 380px;
+    padding: 2.5rem 2rem; border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    position: relative; transform: translateY(20px);
+    transition: transform 0.3s;
+}
+.auth-backdrop.active .auth-modal-card { transform: translateY(0); }
+.btn-google-login {
+    background: white; border: 1px solid #ddd;
+    padding: 0.8rem; border-radius: 50px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-weight: 500; color: #555; transition: 0.2s;
+}
+.btn-google-login:hover { background: #f8f9fa; border-color: #ccc; }
+
+/* Profile Sidebar (Slide-in) */
+.profile-panel {
+    position: fixed; top: 0; right: -400px;
+    width: 100%; max-width: 360px; height: 100vh;
+    background: #FAFAFA; z-index: 10001;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex; flex-direction: column;
+}
+.profile-panel.active { right: 0; }
+
+.profile-header {
+    background: linear-gradient(135deg, var(--tos-red), #b71c1c);
+    padding: 2rem 1.5rem; color: white;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0 10px 30px rgba(198, 40, 40, 0.3);
+}
+.profile-large-img {
+    width: 60px; height: 60px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.3);
+    object-fit: cover;
+}
+.profile-body { flex: 1; padding: 1.5rem; overflow-y: auto; }
+.profile-footer { padding: 1.5rem; background: white; border-top: 1px solid #eee; }
+
+/* Order History Cards */
+.order-history-card {
+    background: white; border-radius: 16px;
+    padding: 1rem; margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.02);
+    transition: transform 0.2s;
+    position: relative; overflow: hidden;
+}
+.order-history-card:hover { transform: translateY(-3px); }
+.order-history-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--tos-gold);
+}
+.order-badge {
+    background: #FFF8E1; color: var(--tos-gold);
+    padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;
+}
+
+/* Custom Pills (Profile Tabs) */
+.custom-pills .nav-link {
+    border-radius: 50px; color: var(--text-muted);
+    font-size: 0.9rem; padding: 0.5rem;
+}
+.custom-pills .nav-link.active {
+    background: var(--tos-dark); color: var(--tos-gold);
+}
+
+/* Toast Notification */
+.auth-toast {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    background: white; padding: 12px 24px; border-radius: 50px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    z-index: 11000; font-weight: 500; font-size: 0.9rem;
+    display: none; animation: slideDown 0.4s ease;
+}
+.auth-toast.show { display: block; }
+@keyframes slideDown { from { top: -50px; opacity: 0; } to { top: 20px; opacity: 1; } }
+
+/* Mobile Adjustments for Auth */
+@media (max-width: 576px) {
+    .profile-panel { width: 100%; max-width: 100%; }
+    .auth-modal-card { width: 95%; }
 }
