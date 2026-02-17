@@ -1,0 +1,542 @@
+/* ==============================================
+   1. GLOBAL VARIABLES & RESET
+   ============================================== */
+:root {
+    /* Brand Colors */
+    --primary-color: #d4af37; /* Gold */
+    --primary-dark: #b59226;
+    --secondary-color: #1f2937; /* Charcoal */
+    --bg-light: #f8fafc;
+    --bg-white: #ffffff;
+    --text-muted: #6b7280;
+
+    /* Smart Table System Colors (TOS) */
+    --tos-red: #C62828;
+    --tos-gold: #F4B400;
+    --tos-dark: #1F1F1F;
+    --tos-bg: #FAFAFA;
+
+    /* Design Tokens */
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --tos-radius: 18px;
+    --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+    --shadow-hover: 0 20px 50px -12px rgba(212, 175, 55, 0.25);
+    --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Fluid Typography (Responsive Text) */
+    --h1-size: clamp(2.5rem, 5vw, 4.5rem);
+    --h2-size: clamp(2rem, 4vw, 3rem);
+    --h3-size: clamp(1.5rem, 3vw, 2.2rem);
+    --body-size: clamp(0.9rem, 1.5vw, 1.05rem);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--secondary-color);
+    background-color: var(--bg-light);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    font-size: var(--body-size);
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, .brand-rest { font-family: 'Playfair Display', serif; }
+.display-3 { font-size: var(--h1-size); }
+.section-title { font-size: var(--h2-size); font-weight: 700; margin-bottom: 1rem; }
+.brand-vip { font-weight: 800; color: var(--primary-color); letter-spacing: 2px; }
+.brand-rest { font-weight: 600; font-size: 0.9em; }
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 4px; background: var(--primary-color);
+    width: 0%; z-index: 9999;
+    transition: width 0.1s linear;
+}
+
+/* ==============================================
+   2. NAVBAR & HERO
+   ============================================== */
+
+/* Glass Navbar */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.4s ease;
+    padding: 1rem 0;
+}
+.glass-nav.scrolled {
+    padding: 0.6rem 0;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.nav-link {
+    color: var(--secondary-color);
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: color 0.3s;
+}
+.nav-link:hover, .nav-link.active { color: var(--primary-color); }
+.navbar-toggler:focus { box-shadow: none; }
+
+/* Buttons */
+.btn-primary-custom, .tos-btn-primary {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+.btn-primary-custom:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+    color: white;
+}
+.btn-outline-custom {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+    background: transparent;
+    transition: var(--transition-fast);
+}
+.btn-outline-custom:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    padding-top: 100px; /* Space for navbar */
+    padding-bottom: 50px;
+    background: radial-gradient(circle at top right, #fff8e1 0%, transparent 40%),
+                radial-gradient(circle at bottom left, #fff8e1 0%, transparent 40%);
+}
+.text-gradient {
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Floating Background Shapes */
+.floating-shape {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.6; z-index: 1;
+}
+.shape-1 { top: -10%; right: -10%; width: 500px; height: 500px; background: #ffeeba; }
+.shape-2 { bottom: -10%; left: -10%; width: 400px; height: 400px; background: #e0f2fe; }
+
+/* Hero Image Specifics */
+.hero-img {
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    /* Soft premium glow */
+    box-shadow: 0 20px 60px rgba(198, 40, 40, 0.2) !important;
+}
+
+/* Animations */
+.floating-anim { animation: float 6s ease-in-out infinite; }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ==============================================
+   3. MENU & CARDS (Highly Responsive)
+   ============================================== */
+
+.py-section { padding: 4rem 0; }
+.bg-light-gradient { background: linear-gradient(180deg, var(--bg-light) 0%, white 100%); }
+.text-gold { color: var(--primary-color); }
+.spacing-2 { letter-spacing: 2px; }
+
+/* Feature Cards */
+.feature-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-fast);
+    border: 1px solid rgba(0,0,0,0.02);
+}
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+.icon-box { font-size: 2rem; color: var(--primary-color); }
+
+/* Filter Pills (Scrollable on Mobile) */
+.menu-filters-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll iOS */
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+/* Hide scrollbar but keep functionality */
+.menu-filters-wrapper::-webkit-scrollbar { height: 0px; background: transparent; }
+
+.filter-btn, .tos-cat-pill {
+    border: none;
+    background: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+    cursor: pointer;
+    display: inline-block;
+}
+.filter-btn.active, .filter-btn:hover { background: var(--primary-color); color: white; }
+
+/* Menu Cards (Responsive Grid) */
+.menu-card, .tos-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-fast);
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+}
+.menu-card:hover, .tos-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+.img-wrapper {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.img-wrapper img, .tos-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+.menu-card:hover .img-wrapper img { transform: scale(1.1); }
+.price { font-weight: 700; color: var(--primary-color); font-size: 1.1rem; }
+
+/* Mobile Adjustments for Grid */
+@media (max-width: 576px) {
+    .py-section { padding: 3rem 0; }
+    .img-wrapper { height: 140px; } /* Smaller images on mobile */
+    .card-body { padding: 0.8rem !important; } /* Tighter padding */
+    .card-title-responsive {
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .price { font-size: 0.95rem; }
+    /* Hide long text on mobile grid to save space */
+    .menu-card p.small { display: none; }
+    /* Compact Feature Cards */
+    .feature-card { padding: 1rem !important; }
+    .icon-box { font-size: 1.5rem; margin-bottom: 0.5rem !important; }
+}
+
+/* ==============================================
+   4. GALLERY & MAP STYLING
+   ============================================== */
+
+/* Mood Suggester */
+.mood-result-box {
+    min-height: 150px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    background: #fff8e1;
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--primary-color);
+}
+.emoji { font-size: 3rem; }
+
+/* Gallery (Responsive Grid) */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+/* Mobile specific gallery */
+@media (max-width: 576px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cols on mobile */
+        gap: 0.8rem;
+    }
+}
+.gallery-item {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden; cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    aspect-ratio: 1/1; /* Square images */
+}
+.gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+.gallery-item::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.gallery-item:hover::after { opacity: 1; }
+
+/* Real Map Integration Styling */
+.map-container {
+    position: relative;
+    height: 300px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #e9ecef;
+    border: 4px solid white;
+}
+.map-container iframe {
+    filter: saturate(1.1); /* Slight saturation boost */
+}
+.map-overlay-card {
+    position: absolute;
+    bottom: 15px; left: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    max-width: 280px;
+    z-index: 10;
+    border: 1px solid rgba(0,0,0,0.05);
+    animation: slideUpFade 0.6s ease-out 1s backwards;
+}
+.icon-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+}
+@keyframes slideUpFade {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Modern Inputs */
+.modern-input {
+    border: none;
+    background: rgba(255,255,255,0.1);
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    border-radius: 0;
+    color: white;
+    padding: 1rem 0;
+}
+.modern-input:focus {
+    background: transparent;
+    border-color: var(--primary-color);
+    box-shadow: none; color: white;
+}
+.modern-input::placeholder { color: rgba(255,255,255,0.5); }
+
+/* ==============================================
+   5. FLOATING ELEMENTS & MODALS
+   ============================================== */
+
+/* FAB Container */
+.fab-container {
+    position: fixed; bottom: 2rem; right: 2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    z-index: 100;
+}
+.fab-btn {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    border: none; cursor: pointer; text-decoration: none;
+}
+.fab-btn:hover { transform: scale(1.1); color: white; }
+.whatsapp-fab { background: #25D366; }
+.cart-fab { background: var(--secondary-color); }
+
+/* Mobile FAB Positioning */
+@media (max-width: 768px) {
+    .fab-container { right: 1rem; bottom: 1.5rem; }
+}
+
+/* Lightbox */
+.lightbox {
+    display: none; position: fixed;
+    z-index: 2000; left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center; align-items: center;
+}
+.lightbox-content {
+    max-width: 90%; max-height: 80%;
+    border-radius: 8px; animation: zoom 0.3s;
+}
+.close-lightbox {
+    position: absolute; top: 20px; right: 35px;
+    color: white; font-size: 40px; font-weight: bold; cursor: pointer;
+}
+@keyframes zoom { from {transform:scale(0)} to {transform:scale(1)} }
+
+/* Lazy Load */
+.lazy-img { opacity: 0; transition: opacity 0.5s ease-in; }
+.lazy-img.loaded { opacity: 1; }
+
+/* ==============================================
+   6. SMART TABLE ORDERING SYSTEM (TOS)
+   ============================================== */
+
+/* TOS Sidebar & Global Sidebars */
+.quick-order-panel, .tos-cart-sidebar {
+    position: fixed; top: 0; right: -100%;
+    width: 380px; height: 100vh;
+    background: white; z-index: 10000;
+    box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex; flex-direction: column;
+}
+.quick-order-panel.active, .tos-cart-sidebar.active { right: 0; }
+
+/* Full screen sidebar on mobile */
+@media (max-width: 576px) {
+    .quick-order-panel, .tos-cart-sidebar { width: 100%; max-width: 100%; }
+    /* Map adjustments for mobile */
+    .map-container { height: 250px; }
+    .map-overlay-card {
+        left: 10px; right: 10px; bottom: 10px;
+        max-width: none;
+    }
+}
+
+.panel-backdrop, .tos-modal-backdrop {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 1040; display: none;
+    opacity: 0; transition: opacity 0.3s;
+    backdrop-filter: blur(5px);
+}
+.panel-backdrop.active, .tos-modal-backdrop.active { display: flex; opacity: 1; }
+.tos-modal-backdrop { justify-content: center; align-items: center; z-index: 9999; }
+
+/* TOS Modal */
+.tos-modal-card {
+    background: white; padding: 2rem;
+    border-radius: var(--tos-radius);
+    width: 90%; max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.tos-modal-backdrop.active .tos-modal-card { transform: scale(1); }
+
+/* TOS Specific Elements */
+.tos-input {
+    border: 2px solid #eee; padding: 1rem;
+    font-size: 1.2rem; border-radius: 12px;
+}
+.tos-input:focus { border-color: var(--tos-red); box-shadow: none; }
+
+.tos-btn-primary {
+    background: var(--tos-red); color: white;
+    border-radius: 12px;
+}
+.tos-btn-primary:hover { background: #b71c1c; transform: translateY(-2px); color: white; }
+
+.tos-icon-circle {
+    width: 60px; height: 60px;
+    background: #FFEBEE; color: var(--tos-red);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto; font-size: 1.5rem;
+}
+
+/* TOS Menu Pills */
+.tos-categories {
+    overflow-x: auto; display: flex; gap: 10px;
+    padding-bottom: 5px; scrollbar-width: none;
+}
+.tos-cat-pill.active {
+    background: var(--tos-dark); color: var(--tos-gold);
+    border-color: var(--tos-dark);
+}
+
+/* TOS Menu Card (Compact) */
+.tos-card img { height: 140px; border-radius: 12px; margin-bottom: 0.5rem; }
+.tos-add-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #FFF8E1; color: var(--tos-dark);
+    border: none; display: flex; align-items: center; justify-content: center;
+    transition: 0.2s;
+}
+.tos-add-btn:hover { background: var(--tos-gold); }
+
+/* Mobile TOS Card */
+@media (max-width: 576px) {
+    .tos-card { padding: 0.8rem; }
+    .tos-card img { height: 110px; }
+}
+
+/* TOS Floating Cart */
+.tos-fab-cart {
+    position: fixed; bottom: 2rem; left: 2rem;
+    width: 60px; height: 60px;
+    background: var(--tos-dark); color: var(--tos-gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 9900; cursor: pointer;
+    transition: transform 0.2s;
+}
+.tos-fab-cart:hover { transform: scale(1.1); }
+.tos-badge {
+    position: absolute; top: -2px; right: -2px;
+    background: var(--tos-red); color: white;
+    font-size: 0.7rem; width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid white;
+}
+
+/* Cart Panel Content */
+.tos-cart-header { padding: 1.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+.tos-cart-body { flex: 1; overflow-y: auto; padding: 1.5rem; }
+.tos-cart-footer { padding: 1.5rem; background: #fff; border-top: 1px solid #eee; }
+
+/* Cart Items */
+.tos-cart-item {
+    display: flex; align-items: center;
+    margin-bottom: 1rem; padding-bottom: 1rem;
+    border-bottom: 1px dashed #eee;
+    animation: slideIn 0.3s ease;
+}
+@keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+.qty-control {
+    display: flex; align-items: center; gap: 8px;
+    background: #f5f5f5; padding: 4px; border-radius: 8px;
+}
+.qty-btn {
+    width: 24px; height: 24px; border-radius: 6px;
+    border: none; background: white;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
