@@ -107,20 +107,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         img.onload = () => img.classList.add('loaded');
                     }
                 }
-                // Handle Map Iframe
+                // Handle Map Container (Iframe)
                 if(entry.target.classList.contains('map-container')) {
                     const iframe = entry.target.querySelector('iframe');
-                    if(iframe && !iframe.getAttribute('src').startsWith('http')) {
-                        // Reload or set src if needed (handled via browser native lazy loading usually, but this ensures fade-in)
-                        iframe.style.opacity = 1;
+                    if(iframe) {
+                        // Ensure opacity transition works
+                        iframe.style.opacity = 1; 
                     }
                 }
                 observer.unobserve(entry.target);
             }
         });
-    }, { rootMargin: "100px" });
+    }, { rootMargin: "150px" });
 
     document.querySelectorAll('.lazy-img').forEach(img => lazyObserver.observe(img));
+    
     const mapContainer = document.querySelector('.map-container');
     if(mapContainer) lazyObserver.observe(mapContainer);
 
