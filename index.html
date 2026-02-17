@@ -43,7 +43,7 @@
                     <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
                     <li class="nav-item ms-lg-3 d-none d-lg-block">
-                        <button class="btn btn-primary-custom" onclick="toggleOrderPanel()">Order Online</button>
+                        <button class="btn btn-primary-custom" onclick="toggleOrderPanel()">Dine-In</button>
                     </li>
                 </ul>
             </div>
@@ -65,13 +65,13 @@
                         <a href="#menu" class="btn btn-primary-custom btn-lg shadow-sm">View Menu</a>
                         
                         <button onclick="TableSystem.init()" class="btn btn-lg shadow-sm text-white d-flex align-items-center" style="background-color: #C62828; border: none; border-radius: 50px; padding: 0.75rem 1.5rem;">
-                            <i class="fas fa-qrcode me-2"></i> Dine-In
+                            <i class="fas fa-qrcode me-2"></i> Scan / Dine-In
                         </button>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
                     <img src="https://images.unsplash.com/photo-1585937421612-70a008356f36?auto=format&fit=crop&w=800&q=80" 
-                         alt="Royal Indian Thali Feast" 
+                         alt="VIP Special Thali" 
                          class="img-fluid hero-img floating-anim rounded-circle shadow-lg"
                          style="border: 4px solid white; max-width: 85%;">
                 </div>
@@ -184,7 +184,7 @@
                 <div class="col-6 col-lg-4 menu-item" data-category="north-indian">
                     <div class="menu-card h-100 d-flex flex-column">
                         <div class="img-wrapper">
-                            <img data-src="https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" alt="VIP Dal Makhani" class="lazy-img">
+                            <img data-src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80" alt="VIP Dal Makhani" class="lazy-img">
                         </div>
                         <div class="card-body p-3 p-md-4 d-flex flex-column flex-grow-1">
                             <h5 class="mb-1 card-title-responsive">VIP Dal Makhani</h5>
@@ -258,37 +258,13 @@
                 <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Luxury Interior"></div>
                 <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Sweets Counter"></div>
                 <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1530103862676-de3c9a59af57?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Birthday Party"></div>
-                <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Master Chef"></div>
+                <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1606471191009-63994c53433b?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="VIP Special Platter"></div>
                 <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Buffet Spread"></div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-section bg-light-gradient">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow-lg" alt="VIP Kitchen & Team">
-                </div>
-                <div class="col-lg-6 ps-lg-5">
-                    <h2 class="section-title mb-3">Serving Happiness in Yamunanagar</h2>
-                    <p class="text-muted">Established with a passion for culinary excellence, VIP Sweets & Restaurant has been the go-to destination for authentic flavors. From our pure ghee mithais to our continental delights, we ensure every bite is a celebration.</p>
-                    <div class="row mt-4">
-                        <div class="col-6">
-                            <h3 class="fw-bold text-gold">15+</h3>
-                            <p class="small">Years Experience</p>
-                        </div>
-                        <div class="col-6">
-                            <h3 class="fw-bold text-gold">500+</h3>
-                            <p class="small">Daily Happy Customers</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews" class="py-section">
+    <section id="reviews" class="py-section bg-light-gradient">
         <div class="container">
             <div class="text-center mb-4">
                 <h2 class="section-title">Reviews</h2>
@@ -325,15 +301,13 @@
             <div class="row g-5">
                 <div class="col-lg-5">
                     <h3 class="mb-4">Visit Us</h3>
-                    <p class="d-flex align-items-center"><i class="fas fa-map-marker-alt text-gold me-3"></i> Shop 32, Block B, Thapar Colony</p>
-                    <p class="ps-4 text-muted small">Workshop Rd, Near Fountain Chowk, Yamunanagar</p>
-                    <p class="d-flex align-items-center"><i class="fas fa-phone text-gold me-3"></i> +91 98960 XXXXX</p>
-                    <p class="d-flex align-items-center"><i class="fas fa-envelope text-gold me-3"></i> hello@vipsweets.com</p>
+                    <p class="d-flex align-items-start"><i class="fas fa-map-marker-alt text-gold me-3 mt-1"></i> <span>Shop No. 32, Block B, Workshop Road, Thapar Colony,<br>Near Fountain Chowk, Yamunanagar</span></p>
+                    <p class="d-flex align-items-center"><i class="fas fa-phone text-gold me-3"></i> +91 095184 54250</p>
                     
                     <div class="mt-4">
                         <div class="map-container shadow-lg">
                             <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.767426168914!2d77.265432!3d30.134567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVklQIFN3ZWV0cyAmIFJlc3RhdXJhbnQ!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.886475752948!2d77.26543431507724!3d30.13689498184852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ef99b8b8b8b8b%3A0x8b8b8b8b8b8b8b8b!2sYamunanagar!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" 
                                 width="100%" 
                                 height="100%" 
                                 style="border:0;" 
@@ -349,12 +323,17 @@
                                     </div>
                                     <div>
                                         <h6 class="fw-bold mb-0 text-dark">VIP Sweets</h6>
-                                        <p class="small text-muted mb-0">Thapar Colony, YNR</p>
+                                        <p class="small text-muted mb-0">Workshop Rd, YNR</p>
                                     </div>
                                 </div>
-                                <a href="https://maps.google.com" target="_blank" class="btn btn-sm btn-outline-danger mt-2 w-100 rounded-pill">
-                                    <i class="fas fa-directions me-1"></i> Get Directions
-                                </a>
+                                <div class="d-flex gap-2 mt-2">
+                                    <a href="https://maps.google.com" target="_blank" class="btn btn-sm btn-outline-danger w-100 rounded-pill">
+                                        <i class="fas fa-directions me-1"></i> Directions
+                                    </a>
+                                    <a href="tel:+9109518454250" class="btn btn-sm btn-danger w-100 rounded-pill text-white">
+                                        <i class="fas fa-phone me-1"></i> Call
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -390,12 +369,12 @@
                 <a href="#" class="text-white mx-3 fs-5"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="text-white mx-3 fs-5"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <p class="small mb-0">&copy; 2024 VIP Sweets & Restaurant. All Rights Reserved.</p>
+            <p class="small mb-0">© 2024 VIP Sweets & Restaurant. All Rights Reserved.</p>
         </div>
     </footer>
 
     <div class="fab-container">
-        <a href="https://wa.me/919896000000" class="fab-btn whatsapp-fab">
+        <a href="https://wa.me/919518454250" class="fab-btn whatsapp-fab">
             <i class="fab fa-whatsapp"></i>
         </a>
         <button onclick="toggleOrderPanel()" class="fab-btn cart-fab d-none d-lg-flex">
@@ -417,7 +396,7 @@
     <div id="panelBackdrop" class="panel-backdrop" onclick="toggleOrderPanel()"></div>
 
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
+        <span class="close-lightbox">×</span>
         <img class="lightbox-content" id="lightbox-img">
     </div>
 
