@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body id="top">
 
@@ -26,7 +30,7 @@
             </a>
             
             <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-sm btn-outline-custom d-lg-none rounded-circle" onclick="toggleOrderPanel()" style="width: 40px; height: 40px;">
+                <button class="btn btn-sm btn-outline-custom d-lg-none rounded-circle" onclick="TableSystem.toggleCart()" style="width: 40px; height: 40px;">
                     <i class="fas fa-shopping-bag"></i>
                 </button>
                 
@@ -41,9 +45,20 @@
                     <li class="nav-item"><a class="nav-link" href="#highlights">Specialties</a></li>
                     <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
                     <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+                    
+                    <li class="nav-item ms-lg-2 d-flex align-items-center justify-content-center my-2 my-lg-0" id="auth-nav-container">
+                        <button id="login-trigger-btn" class="btn btn-outline-custom btn-sm px-4" onclick="AuthSystem.openLogin()">
+                            <i class="fas fa-user me-2"></i> Login
+                        </button>
+
+                        <div id="user-profile-trigger" class="profile-trigger d-none" onclick="AuthSystem.toggleProfile()">
+                            <img id="nav-user-img" src="" alt="Profile">
+                            <span class="online-badge"></span>
+                        </div>
+                    </li>
+
                     <li class="nav-item ms-lg-3 d-none d-lg-block">
-                        <button class="btn btn-primary-custom" onclick="toggleOrderPanel()">Dine-In</button>
+                        <button class="btn btn-primary-custom" onclick="TableSystem.toggleCart()">Dine-In Cart</button>
                     </li>
                 </ul>
             </div>
@@ -132,7 +147,6 @@
             </div>
 
             <div class="row g-3 g-md-4 menu-container">
-                
                 <div class="col-6 col-lg-4 menu-item" data-category="sweets">
                     <div class="menu-card h-100 d-flex flex-column">
                         <div class="img-wrapper">
@@ -143,28 +157,12 @@
                             <p class="text-muted small mb-2 d-none d-sm-block">Made with premium cashews.</p>
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <span class="price">₹800/kg</span>
-                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" onclick="TableSystem.addToCart(101)" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-6 col-lg-4 menu-item" data-category="sweets">
-                    <div class="menu-card h-100 d-flex flex-column">
-                        <div class="img-wrapper">
-                            <img data-src="https://images.unsplash.com/photo-1605197391486-84d33361b3bd?auto=format&fit=crop&w=400&q=80" alt="Kesar Rasmalai" class="lazy-img">
-                        </div>
-                        <div class="card-body p-3 p-md-4 d-flex flex-column flex-grow-1">
-                            <h5 class="mb-1 card-title-responsive">Kesar Rasmalai</h5>
-                            <p class="text-muted small mb-2 d-none d-sm-block">Soft chenna dumplings.</p>
-                            <div class="mt-auto d-flex justify-content-between align-items-center">
-                                <span class="price">₹40/pc</span>
-                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="col-6 col-lg-4 menu-item" data-category="north-indian">
                     <div class="menu-card h-100 d-flex flex-column">
                         <div class="img-wrapper">
@@ -175,23 +173,7 @@
                             <p class="text-muted small mb-2 d-none d-sm-block">Rich tomato gravy.</p>
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <span class="price">₹240</span>
-                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-lg-4 menu-item" data-category="north-indian">
-                    <div class="menu-card h-100 d-flex flex-column">
-                        <div class="img-wrapper">
-                            <img data-src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80" alt="VIP Dal Makhani" class="lazy-img">
-                        </div>
-                        <div class="card-body p-3 p-md-4 d-flex flex-column flex-grow-1">
-                            <h5 class="mb-1 card-title-responsive">VIP Dal Makhani</h5>
-                            <p class="text-muted small mb-2 d-none d-sm-block">Slow cooked 12 hours.</p>
-                            <div class="mt-auto d-flex justify-content-between align-items-center">
-                                <span class="price">₹220</span>
-                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" onclick="TableSystem.addToCart(202)" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -207,7 +189,7 @@
                             <p class="text-muted small mb-2 d-none d-sm-block">Belgian chocolate.</p>
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <span class="price">₹550</span>
-                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" onclick="TableSystem.addToCart(301)" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -223,7 +205,7 @@
                             <p class="text-muted small mb-2 d-none d-sm-block">Stir-fried noodles.</p>
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <span class="price">₹180</span>
-                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-sm btn-outline-custom add-to-cart rounded-circle p-0" onclick="TableSystem.addToCart(401)" style="width:32px; height:32px;"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -259,39 +241,6 @@
                 <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Sweets Counter"></div>
                 <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1530103862676-de3c9a59af57?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Birthday Party"></div>
                 <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1606471191009-63994c53433b?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="VIP Special Platter"></div>
-                <div class="gallery-item"><img data-src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80" class="lazy-img" alt="Buffet Spread"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews" class="py-section bg-light-gradient">
-        <div class="container">
-            <div class="text-center mb-4">
-                <h2 class="section-title">Reviews</h2>
-            </div>
-            <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner text-center">
-                    <div class="carousel-item active">
-                        <div class="review-card mx-auto p-4 bg-white shadow-sm rounded-4">
-                            <p class="lead fst-italic small-text-mobile">"Best place in Yamunanagar. Dal Makhani is legendary!"</p>
-                            <h6 class="mt-3 text-gold">- Rahul Sharma</h6>
-                            <div class="stars text-warning small"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="review-card mx-auto p-4 bg-white shadow-sm rounded-4">
-                            <p class="lead fst-italic small-text-mobile">"Ordered a custom cake. It was fresh and beautiful."</p>
-                            <h6 class="mt-3 text-gold">- Priya Verma</h6>
-                            <div class="stars text-warning small"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
-                </button>
             </div>
         </div>
     </section>
@@ -307,7 +256,7 @@
                     <div class="mt-4">
                         <div class="map-container shadow-lg">
                             <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.886475752948!2d77.26543431507724!3d30.13689498184852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ef99b8b8b8b8b%3A0x8b8b8b8b8b8b8b8b!2sYamunanagar!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.269389279766!2d77.28905331507926!3d30.134766981849136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ef99b8b1a7d65%3A0x6b86b20759020306!2sYamuna%20Nagar%2C%20Haryana!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" 
                                 width="100%" 
                                 height="100%" 
                                 style="border:0;" 
@@ -343,18 +292,10 @@
                     <h3 class="mb-4">Get in Touch</h3>
                     <form id="contactForm" onsubmit="handleForm(event)">
                         <div class="row g-3">
-                            <div class="col-12">
-                                <input type="text" class="form-control modern-input" placeholder="Your Name" required>
-                            </div>
-                            <div class="col-12">
-                                <input type="tel" class="form-control modern-input" placeholder="Phone Number" required>
-                            </div>
-                            <div class="col-12">
-                                <textarea class="form-control modern-input" rows="3" placeholder="Message"></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary-custom w-100">Send Message</button>
-                            </div>
+                            <div class="col-12"><input type="text" class="form-control modern-input" placeholder="Your Name" required></div>
+                            <div class="col-12"><input type="tel" class="form-control modern-input" placeholder="Phone Number" required></div>
+                            <div class="col-12"><textarea class="form-control modern-input" rows="3" placeholder="Message"></textarea></div>
+                            <div class="col-12"><button type="submit" class="btn btn-primary-custom w-100">Send Message</button></div>
                         </div>
                     </form>
                 </div>
@@ -374,30 +315,55 @@
     </footer>
 
     <div class="fab-container">
-        <a href="https://wa.me/919518454250" class="fab-btn whatsapp-fab">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        <button onclick="toggleOrderPanel()" class="fab-btn cart-fab d-none d-lg-flex">
-            <i class="fas fa-shopping-bag"></i>
-        </button>
+        <a href="https://wa.me/919518454250" class="fab-btn whatsapp-fab"><i class="fab fa-whatsapp"></i></a>
+        <button onclick="TableSystem.toggleCart()" class="fab-btn cart-fab d-none d-lg-flex"><i class="fas fa-shopping-bag"></i></button>
     </div>
 
-    <div id="quickOrderPanel" class="quick-order-panel">
-        <div class="panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
-            <h5 class="mb-0">Quick Order</h5>
-            <button class="btn-close" onclick="toggleOrderPanel()"></button>
-        </div>
-        <div class="panel-body p-3 text-center">
-            <i class="fas fa-shopping-cart fa-3x text-muted opacity-25 mt-5 mb-3"></i>
-            <p class="text-muted">Your cart is empty.</p>
-            <button class="btn btn-sm btn-outline-custom mt-2" onclick="toggleOrderPanel(); location.href='#menu'">Browse Menu</button>
+    <div id="auth-modal-backdrop" class="auth-backdrop">
+        <div class="auth-modal-card">
+            <button class="btn-close position-absolute top-0 end-0 m-3" onclick="AuthSystem.closeLogin()"></button>
+            <div class="text-center mb-4">
+                <span class="brand-vip fs-3">VIP</span> <span class="brand-rest small">Sweets</span>
+                <h4 class="fw-bold mt-3">Welcome Back!</h4>
+                <p class="text-muted small">Sign in to sync your orders.</p>
+            </div>
+            <button class="btn btn-google-login w-100 mb-3" onclick="AuthSystem.login('google')">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" width="20">
+                <span>Continue with Google</span>
+            </button>
+            <button class="btn btn-light w-100 text-muted" onclick="AuthSystem.login('guest')">Continue as Guest</button>
         </div>
     </div>
-    <div id="panelBackdrop" class="panel-backdrop" onclick="toggleOrderPanel()"></div>
 
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close-lightbox">×</span>
-        <img class="lightbox-content" id="lightbox-img">
+    <div id="profile-sidebar" class="profile-panel">
+        <div class="profile-header">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-white" id="greeting-text">Hello!</h5>
+                <button class="btn-close btn-close-white" onclick="AuthSystem.toggleProfile()"></button>
+            </div>
+            <div class="d-flex align-items-center mt-3">
+                <img id="sidebar-user-img" src="" alt="User" class="profile-large-img">
+                <div class="ms-3 text-white">
+                    <h6 class="mb-0 fw-bold" id="sidebar-user-name">Guest</h6>
+                    <small class="opacity-75" id="sidebar-user-email">guest@vipsweets.com</small>
+                </div>
+            </div>
+        </div>
+        <div class="profile-body">
+            <div class="d-flex justify-content-around mb-4 text-center">
+                <div class="stat-box"><h5 class="fw-bold text-danger mb-0" id="total-orders-count">0</h5><small class="text-muted">Orders</small></div>
+                <div class="stat-box"><h5 class="fw-bold text-gold mb-0" id="fav-items-count">0</h5><small class="text-muted">Favorites</small></div>
+            </div>
+            <ul class="nav nav-pills nav-fill mb-3 custom-pills" id="profileTabs">
+                <li class="nav-item"><button class="nav-link active" onclick="AuthSystem.switchTab('orders')">Orders</button></li>
+                <li class="nav-item"><button class="nav-link" onclick="AuthSystem.switchTab('favorites')">Favorites</button></li>
+            </ul>
+            <div id="tab-orders" class="tab-content active"><div id="order-history-list"></div></div>
+            <div id="tab-favorites" class="tab-content d-none"><div class="text-center mt-4 text-muted"><i class="far fa-heart fa-2x mb-2"></i><p>No favorites yet</p></div></div>
+        </div>
+        <div class="profile-footer">
+            <button class="btn btn-outline-danger w-100 rounded-pill" onclick="AuthSystem.logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</button>
+        </div>
     </div>
 
     <div id="tos-table-modal" class="tos-modal-backdrop">
@@ -423,19 +389,7 @@
                     <i class="fas fa-receipt me-1"></i> <span class="d-none d-sm-inline">Request Bill</span>
                 </button>
             </div>
-
-            <div class="menu-filters-wrapper mb-4">
-                <div class="tos-categories d-flex gap-2">
-                    <button class="tos-cat-pill active" onclick="TableSystem.filterMenu('all')">All</button>
-                    <button class="tos-cat-pill" onclick="TableSystem.filterMenu('starters')">Starters</button>
-                    <button class="tos-cat-pill" onclick="TableSystem.filterMenu('main')">Main Course</button>
-                    <button class="tos-cat-pill" onclick="TableSystem.filterMenu('breads')">Breads</button>
-                    <button class="tos-cat-pill" onclick="TableSystem.filterMenu('dessert')">Desserts</button>
-                </div>
-            </div>
-
-            <div class="row g-2 g-md-3" id="tos-menu-grid">
-                </div>
+            <div class="row g-2 g-md-3" id="tos-menu-grid"></div>
         </div>
     </section>
 
@@ -449,34 +403,25 @@
             <h5 class="mb-0 fw-bold">Your Order</h5>
             <button class="btn-close" onclick="TableSystem.toggleCart()"></button>
         </div>
-        <div class="tos-cart-body" id="tos-cart-items">
-            </div>
+        <div class="tos-cart-body" id="tos-cart-items"></div>
         <div class="tos-cart-footer">
-            <div class="d-flex justify-content-between mb-3 fw-bold">
-                <span>Total</span>
-                <span class="text-danger" id="tos-cart-total">₹0</span>
-            </div>
-            <button onclick="TableSystem.checkout()" class="btn tos-btn-primary w-100 py-3 rounded-4 shadow">
-                Confirm Order
-            </button>
+            <div class="d-flex justify-content-between mb-3 fw-bold"><span>Total</span><span class="text-danger" id="tos-cart-total">₹0</span></div>
+            <button onclick="TableSystem.checkout()" class="btn tos-btn-primary w-100 py-3 rounded-4 shadow">Confirm Order</button>
         </div>
     </div>
 
     <div id="tos-bill-modal" class="tos-modal-backdrop">
         <div class="tos-modal-card">
-            <div class="text-center mb-3">
-                <h4 class="fw-bold">Bill Summary</h4>
-                <p class="text-muted small">Table <span id="tos-bill-table"></span> • VIP Sweets</p>
-            </div>
-            <div class="tos-bill-list" id="tos-bill-items">
-                </div>
-            <div class="border-top pt-3 mt-3 d-flex justify-content-between fw-bold fs-5">
-                <span>Grand Total</span>
-                <span class="text-danger" id="tos-bill-total">₹0</span>
-            </div>
+            <div class="text-center mb-3"><h4 class="fw-bold">Bill Summary</h4><p class="text-muted small">Table <span id="tos-bill-table"></span></p></div>
+            <div class="tos-bill-list" id="tos-bill-items"></div>
+            <div class="border-top pt-3 mt-3 d-flex justify-content-between fw-bold fs-5"><span>Total</span><span class="text-danger" id="tos-bill-total">₹0</span></div>
             <button onclick="location.reload()" class="btn tos-btn-primary w-100 mt-4">Close Session</button>
         </div>
     </div>
+
+    <div id="auth-toast" class="auth-toast"><div class="d-flex align-items-center"><i class="fas fa-check-circle text-success me-2"></i><span id="toast-message">Logged in!</span></div></div>
+    
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()"><span class="close-lightbox">×</span><img class="lightbox-content" id="lightbox-img"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
